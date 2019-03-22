@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.util.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-@WebServlet(description = "Servlet to upload file", urlPatterns = { "/FileUpload" , "/FileUpload.do"}, initParams = {@WebInitParam(name="id",value="1"),@WebInitParam(name="name",value="pankaj")})
+@WebServlet(description = "Servlet to upload file", urlPatterns = { "/FileUpload" , "/FileUpload.do"})
 public class FileUpload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String HTML_START="<html><body>";
@@ -36,9 +35,9 @@ public class FileUpload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		isMultipart = ServletFileUpload.isMultipartContent(request);
-	      response.setContentType("text/html");
-	      java.io.PrintWriter out = response.getWriter( );
-	   
+	    response.setContentType("text/html");
+	    java.io.PrintWriter out = response.getWriter( );
+	    out.println("From Post");
 	      if( !isMultipart ) {
 	         out.println("<html>");
 	         out.println("<head>");
@@ -89,11 +88,10 @@ public class FileUpload extends HttpServlet {
 	               long sizeInBytes = fi.getSize();
 	            
 	               // Write the file
-	               if( fileName.lastIndexOf("\\") >= 0 ) {
-	                  file = new File( filePath + fileName.substring( fileName.lastIndexOf("\\"))) ;
-	               } else {
-	                  file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
-	               }
+	               out.println("File path is: "+ filePath);
+	               out.println("File name is :" + fileName);
+	               file = new File(fileName);
+	               //file = new File( fileName.substring(fileName.lastIndexOf("\\")+1)) ;
 	               fi.write( file ) ;
 	               out.println("Uploaded Filename: " + fileName + "<br>");
 	            }

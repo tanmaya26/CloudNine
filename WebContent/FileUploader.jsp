@@ -9,10 +9,14 @@
 <body>
 	<div>
        <h3> Select a file </h3>
-       <form action="FirstServlet" method="post" enctype="multipart/form-data">
-           <input type="file" name="file" />
-           <input type="submit" value="upload" />
-       </form>          
+        <form action = "FileUpload" method = "post" enctype = "multipart/form-data">
+         <input type = "file" name = "file" size = "50" />
+         <br />
+         <input type = "submit" value = "Upload File" />
+      </form>    
+      <form action = "FileUpload" method = "get" enctype = "multipart/form-data">
+         <input type = "submit" value = "Dummy Form" />
+      </form>       
    </div>
 </body>
 </html>
