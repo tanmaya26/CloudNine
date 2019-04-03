@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Cloudnine - Login</title>
+<link rel="stylesheet" type="text/css" href="css/header.css">
+<script src="js/jquery.js"></script>
+
+<style>
+     #buttonbox
+     {
+          width: 220px; height: 220px; position: absolute; margin-left: -110px; margin-top: -130px; left: 50%; top: 50%;
+     }
+     .buttoner
+     {
+          width: 150px; height: 150px; border-radius: 75px; position: absolute; cursor: pointer;
+          color: white; text-align: center; line-height: 150px; vertical-align: middle; font-size: 30px;
+     }
+     #loginbutton
+     {
+          background: #086060; z-index: 2;
+     }
+     #loginbutton:hover
+     {
+          font-size: 38px; background: #1a8180;
+     }
+     #signupbutton
+     {
+          background: #3ca3a2;  right: 0px; bottom: 0px; z-index: 1;
+     }
+     #signupbutton:hover
+     {
+          background: #5ec5c5; font-size: 38px;
+     }
+     #loginform, #signupform
+     {
+          position: absolute; left: 50%; top: 50%; width: 400px; height: 400px;
+          margin-left: -200px; margin-top: -200px; display: none; opacity: 0;
+          color: #1a8180;
+     }
+     #dummydiv, #dummydiv2
+     {
+          position: absolute; margin-top: 50px; width: inherit;
+     }
+     #closeLogin, #closeSignup
+     {
+          color: inherit; position: absolute; right: 0px; font-size: 30px; cursor: pointer;
+     }
+     #errorDisplay, #errorDisplay2
+     {
+          position: absolute; left: 50%; bottom: 0%; color: red; width: 250px; font-size: 25px; margin-left: -105px;
+     }
+     input
+     {
+          color: #1a8180; position: absolute; left: 35%; margin-top: 7px; border-width: 1px; border-radius: 2px; border-color: #1a8180;
+          text-align: center;
+     }
+     input:hover
+     {
+          background-color: #1a8180; color: white;
+     }
+     a
+     {
+          text-decoration: none; color: inherit;
+     }
+     .buttonStyler
+     {
+          padding: 0; background: none; border-style: solid; font-family: simplifica;
+          cursor: pointer; background: #1a8180; color: white; font-size: 26px;
+          width: 200px; height: 40px; line-height: 35px; text-align: center; vertical-align: middle;
+          border-width: 3px; border-color: #1a8180; left: 50%; margin-left: -100px; position: absolute;
+          margin-top: 30px;
+     }
+     .buttonStyler:hover
+     {
+          color:#1a8180; background: white;
+     }
+     #toastMsg
+     {
+          height: 40px; background: #1a8180; color: white; position: absolute;  top: 75px; margin-left: -150px; width: 300px;
+          border-radius: 8px; border-bottom-left-radius: 0px; left: 50%; line-height: 40px; text-align: center; vertical-align: middle;
+          display: none; font-size: 25px;
+     }
+</style>
+</head>
+<body>
+
+<h1>HIIIII
+
+
+
+
+<br/>
+
+By                              e</h1>
+	<div id="toastMsg"></div>
+	<div class="header">Cloudnine</div>
+	<div id="buttonbox">
+         <div id="loginbutton" class="buttoner">Login</div>
+         <div id="signupbutton" class="buttoner">Signup</div>
+    </div>
+    <form action="updateSignin" method="post">
+         <!--<button type="submit">Click Me</button> -->
+    </form>
+
+    <div id="loginform">
+         <div id="closeLogin" onclick="fromLoginToMenu();">return</div>
+         <div id="dummydiv">
+              <form  method="post">
+                   Username: <input type="text" name="uname" id="logUname"/><br/>
+                   Password: <input type="password" name="password" id="logPwd"/><br/>
+                   <button type="button" onclick="ajaxLogin();" class="buttonStyler">login</button>
+                   <br/>
+                   <br/><br/><br/><a href="blink.jsp"><center> Forgot Password! </center></a>
+              </form>
+              <div id="errorDisplay"></div>
+         </div>
+    </div>
+
+    <div id="signupform">
+         <div id="closeSignup" onclick="fromSignupToMenu();">return</div>
+         <div id="dummydiv2">
+              <form onsubmit="return validateUser();">
+                   Username: <input type="text" name="uname" id="uname"/><br/>
+                   Password: <input type="password" name="password" id="password"/><br/>
+                   Secret Question: <input type="text" name="ques" id="ques"/><br/>
+                   Answer: <input type="text" name="ans" id="ans"/><br/><br/>
+                   <button type="submit" name="button" class="buttonStyler" >signup</button>
+              </form>
+              <br/><br/><br/>
+              <div id="errorDisplay2"></div>
+         </div>
+    </div>
+</body>
+
+<script>
+     $("#loginbutton").click(function() {
+          $("#buttonbox").fadeOut();
+          $("#loginform").css("display","block").delay(500).animate({
+               opacity: 1,
+          },500);
+     });
+     $("#loginbutton").hover(function() {
+          $("#loginbutton").css("z-index",1);
+          $("#signupbutton").css("z-index",0);
+          $("#toastMsg").css("display","block");
+          $("#toastMsg").css("background-color","#1a8180");
+          $("#toastMsg").html("sign-in to an existing account");
+     }, function() {
+          $("#toastMsg").css("display","none");
+     });
+
+     $("#signupbutton").click(function() {
+          $("#buttonbox").fadeOut();
+          $("#signupform").css("display","block").delay(500).animate({
+               opacity: 1,
+          },500);
+     });
+     $("#signupbutton").hover(function() {
+          $("#loginbutton").css("z-index",0);
+          $("#signupbutton").css("z-index",1);
+          $("#toastMsg").css("display","block");
+          $("#toastMsg").css("background-color","#5ec5c5");
+          $("#toastMsg").html("create a new account");
+     }, function() {
+          $("#toastMsg").css("display","none");
+     });
+
+     function fromLoginToMenu()
+     {
+          $("#loginform").animate({
+               opacity: 0,
+          },500,function(){
+               $("#loginform").css("display","none");
+          });
+          $("#buttonbox").delay(500).fadeIn();
+     }
+
+     function fromSignupToMenu()
+     {
+          $("#signupform").animate({
+               opacity: 0,
+          },500,function(){
+               $("#signupform").css("display","none");
+          });
+          $("#buttonbox").delay(500).fadeIn();
+     }
+     var rxdata='';
+     var logUname = document.getElementById("logUname");
+     var logPwd = document.getElementById("logPwd");
+     var errorDisplay = document.getElementById("errorDisplay");
+     var errorDisplay2 = document.getElementById("errorDisplay2");
+     function ajaxLogin()
+     {
+    	 if(logUname.value == "admin" && logPwd.value == "admin"){
+    		 window.location="Home.jsp";
+    	 }
+    	 else{
+    		 errorDisplay.innerHTML="Non-existent User";
+    	 }
+     }
+     var err;
+     function validateUser()
+     {
+          err=null;
+          if (document.getElementById("uname").value.length==0)
+               err="Name\n";
+          if (document.getElementById("password").value.length==0)
+               err+="Password\n";
+          if (document.getElementById("ques").value.length==0)
+               err+="Secret Question\n";
+          if (document.getElementById("ans").value.length==0)
+               err+="Answer to secret question\n";
+          if(err!=null)
+          {
+               alert("The Following Fields Cannot Be Left Blank\n\n"+err);
+               return false;
+          }
+          else
+          {
+          	errorDisplay2.innerHTML="Can't add users to demo app!";
+          }
+          return false;
+     }
+</script>
+
+</html>

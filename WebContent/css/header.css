@@ -1,0 +1,14 @@
+@font-face
+{
+     font-family: simplifica;
+     src: url(../fonts/simplifica.ttf);
+}
+body
+{
+     margin: 0px; font-family: simplifica; font-size: 28px;
+}
+.header
+{
+     height: 50px; width: 100%; background: #1a8180; position: fixed; top: 0px; color: white; font-size: 35px;
+     line-height: 50px; vertical-align: middle; text-align: center;
+}
