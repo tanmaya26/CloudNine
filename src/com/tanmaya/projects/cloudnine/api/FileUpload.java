@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -34,73 +36,40 @@ public class FileUpload extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		isMultipart = ServletFileUpload.isMultipartContent(request);
-	    response.setContentType("text/html");
-	    java.io.PrintWriter out = response.getWriter( );
-	    out.println("From Post");
-	      if( !isMultipart ) {
-	         out.println("<html>");
-	         out.println("<head>");
-	         out.println("<title>Servlet upload</title>");  
-	         out.println("</head>");
-	         out.println("<body>");
-	         out.println("<p>No file uploaded</p>"); 
-	         out.println("</body>");
-	         out.println("</html>");
-	         return;
-	      }
-	  
-	      DiskFileItemFactory factory = new DiskFileItemFactory();
-	   
-	      // maximum size that will be stored in memory
-	      factory.setSizeThreshold(maxMemSize);
-	   
-	      // Location to save data that is larger than maxMemSize.
-	      factory.setRepository(new File("c:\\temp"));
-	
-	      // Create a new file upload handler
-	      ServletFileUpload upload = new ServletFileUpload(factory);
-	   
-	      // maximum file size to be uploaded.
-	      upload.setSizeMax( maxFileSize );
-	
-	      try { 
-	         // Parse the request to get file items.
-	         List fileItems = upload.parseRequest(request);
-		
-	         // Process the uploaded file items
-	         Iterator i = fileItems.iterator();
-	
-	         out.println("<html>");
-	         out.println("<head>");
-	         out.println("<title>Servlet upload</title>");  
-	         out.println("</head>");
-	         out.println("<body>");
-	   
-	         while ( i.hasNext () ) {
-	            FileItem fi = (FileItem)i.next();
-	            if ( !fi.isFormField () ) {
-	               // Get the uploaded file parameters
-	               String fieldName = fi.getFieldName();
-	               String fileName = fi.getName();
-	               String contentType = fi.getContentType();
-	               boolean isInMemory = fi.isInMemory();
-	               long sizeInBytes = fi.getSize();
-	            
-	               // Write the file
-	               out.println("File path is: "+ filePath);
-	               out.println("File name is :" + fileName);
-	               file = new File(fileName);
-	               //file = new File( fileName.substring(fileName.lastIndexOf("\\")+1)) ;
-	               fi.write( file ) ;
-	               out.println("Uploaded Filename: " + fileName + "<br>");
-	            }
-	         }
-	         out.println("</body>");
-	         out.println("</html>");
-	     } catch(Exception ex) {
-	        System.out.println(ex);
-	     }
-	}
+		   boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
+           if (isMultipart) {
+               // Create a factory for disk-based file items
+               FileItemFactory factory = new DiskFileItemFactory();
+
+               // Create a new file upload handler
+               ServletFileUpload upload = new ServletFileUpload(factory);
+
+               try {
+                   // Parse the request
+                   List items = upload.parseRequest(request);
+                   Iterator iterator = items.iterator();
+                   while (iterator.hasNext()) {
+                       FileItem item = (FileItem) iterator.next();
+                       if (!item.isFormField()) {
+                           String fileName = item.getName();    
+                           String root = getServletContext().getRealPath("/");
+                           File path = new File(root + "/uploads");
+                           if (!path.exists()) {
+                               boolean status = path.mkdirs();
+                           }
+
+                           File uploadedFile = new File(path + "/" + fileName);
+                           System.out.println(uploadedFile.getAbsolutePath());
+                           item.write(uploadedFile);
+                       }
+                   }
+               } catch (FileUploadException e) {
+                   e.printStackTrace();
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+           }
+
+}
 }

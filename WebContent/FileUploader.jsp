@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Dummy Upload Page</title>
+<title>Welcome</title>
 </head>
 <body>
 	<div>
