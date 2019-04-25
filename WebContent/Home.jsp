@@ -11,7 +11,7 @@
 			#logout
 		     {
 		          height: 50px; width: 100px; background: #1a8180; position: fixed; top: 0px; color: white; font-size: 30px; right: 0px;
-		          line-height: 50px; vertical-align: middle; text-align: center; z-index: 3; cursor: pointer;
+		          line-height: 50px; vertical-align: middle; text-align: center; z-index: 3; cursor: pointer; font-family: simplifica !important;
 		     }
 		     #logout:hover
 		     {
@@ -20,7 +20,7 @@
 		     #welcomeBox
 		     {
 		          height: 50px; width: 200px; background: #1a8180; position: fixed; top: 0px; color: white; font-size: 30px;
-		          line-height: 50px; vertical-align: middle; text-align: center; z-index: 3;
+		          line-height: 50px; vertical-align: middle; text-align: center; z-index: 3; font-family: simplifica !important;
 		     }
 		     #buttonbox
 		     {
@@ -31,104 +31,17 @@
 		          width: 150px; height: 150px; border-radius: 75px; position: absolute; cursor: pointer;
 		          color: white; text-align: center; line-height: 150px; vertical-align: middle; font-size: 30px;
 		     }
-		     #oldChatbutton
-		     {
-		          background: #086060; z-index: 2;
-		     }
-		     #oldChatbutton:hover
-		     {
-		          font-size: 38px; background: #1a8180;
-		     }
-		     #newChatbutton
-		     {
-		          background: #3ca3a2;  right: 0px; bottom: 0px; z-index: 1;
-		     }
-		     #newChatbutton:hover
-		     {
-		          background: #5ec5c5; font-size: 38px;
-		     }
-		     #oldChatWindow, #newChatWindow
-		     {
-		          position: absolute; left: 50%; top: 50%; width: 400px; height: 400px;
-		          margin-left: -200px; margin-top: -200px; display: none; opacity: 0;
-		          color: #1a8180;
-		     }
-		     #closeOldWindow, #closeNewWindow
-		     {
-		          color: inherit; position: absolute; top: 0px; right: 0px; font-size: 30px; cursor: pointer; background: #ffffff;
-		          width: 70px; height: 30px; line-height: 30px; text-align: center; vertical-align: middle;
-		     }
-		     .nameBox
-		     {
-		          color: inherit; font-size: 25px; cursor: pointer;
-		          width: 200px; height: 40px; line-height: 40px; text-align: center; vertical-align: middle; margin-top: 10px;
-		          border: 3px solid #1a8180; border-radius: 7px; border-bottom-right-radius: 0px;
-		     }
-		     .nameBox:hover
-		     {
-		          color: white; background: #1a8180;
-		     }
-		     .nameBoxCont
-		     {
-		          position: absolute; top: 40px;  left: 50%; margin-left: -100px; max-height: 300px; overflow-y: scroll; width: 220px;
-		     }
-		     #toastMsg
-		     {
-		          height: 40px; background: #1a8180; color: white; position: absolute;  top: 75px; margin-left: -150px; width: 300px;
-		          border-radius: 8px; border-bottom-left-radius: 0px; left: 50%; line-height: 40px; text-align: center; vertical-align: middle;
-		          display: none; font-size: 25px;
-		     }
-		     #toastMsg2
-		     {
-		          height: 40px; background: #1a8180; color: white; position: absolute;  top: 75px; margin-left: -150px; width: 300px;
-		          border-radius: 8px; border-bottom-left-radius: 0px; left: 50%; line-height: 40px; text-align: center; vertical-align: middle;
-		          font-size: 35px; display: none; z-index: 5;
-		     }
-		     #notification
-		     {
-		          position: fixed; z-index: 10; width: 70px; height: 50px; right: 100px; cursor: pointer;
-		     }
-		     #notification:hover
-		     {
-		          background-color: 3cb3b2;
-		     }
-		     #popupbar
-		     {
-		          font-size: 20px; color: white; width: 23px; height: 23px; background: #8B0000; border-radius: 23px; line-height: 24px; vertical-align: middle;
-		          text-align: center; display: none;
-		     }
-		     #searchBar
-		     {
-		          width: 300px; height: 32px; position: absolute; z-index: 4; color: white; font-size: 20px; background-color: #2F4F4F; display: none;
-		          left: 50%; margin-left: -150px; top: 110px; text-align: center; line-height: 27px; vertical-align: bottom; border-bottom-right-radius: 8px;
-		     }
-		     #searchImage
-		     {
-		          width: 30px; height: 30px; margin-left: 30px; position: absolute; bottom: -1px;
-		     }
-		     #textField
-		     {
-		          background-color: inherit; width: 100px; height: 27px; position: absolute; left: 80px; bottom: 1px;
-		     }
-		     #ipfield
-		     {
-		          position: absolute; width: 140px; color: white; background-color: inherit; border: 0px; text-align: center; font-family: simplifica;
-		          font-size: 20px; letter-spacing: 1px; left: 0px; border-bottom: 1px solid white; outline: none;
-		     }
-		     #notifDisplay
-		     {
-		          background-color: #1a8180; position: fixed; width: 206px;  right: 40px; top: 52px;
-		          border-radius: 8px; border-top-left-radius: 0px; padding-bottom: 10px; display: none;
+		     #directoryLister{
+		     	position: absolute; top: 120px;  left: 50%; margin-left: -250px; max-height: 300px; overflow-y: scroll; width: 500px;
+		     	 height: 45px; background-color: #1a8180; color: white; border-radius: 5px; line-height: 45px;
+                 text-align: center; vertical-align: middle; font-family: simplifica !important;
 		     }
 		     
-		     #directoryLister{
-		     	position: absolute; top: 100px;  left: 50%; margin-left: -250px; max-height: 300px; overflow-y: scroll; width: 500px;
-		     	 height: 45px; background-color: #1a8180; color: white; border-radius: 5px; line-height: 45px;
-                 text-align: center; vertical-align: middle;
+		     #contentBox{
+                 position: absolute; top: 190px; left: 50%; width: 1080px; margin-left: -540px; height: 720px; overflow-y: scroll; 
+                 border-width: 2px; border-style: solid; border-radius: 5px; border-color: #1a8180;
 		     }
-			
-			
-			
+				
 		     ::-webkit-scrollbar {
 		          width: 5px;
 		     }
@@ -142,6 +55,8 @@
 		          background: #1a8180;
 		     }
 		</style>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
+    	<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js"></script>
 	</head>
 	<body>
 		<div class="header">Cloudnine: serving beyond the skyline!</div>
@@ -152,5 +67,64 @@
             PhotoBucket > Randomzzzzz > mobile uploads > angel_priya
 		</div>
 		
+		<div id="contentBox">
+			<table border="1" cellpadding="5">
+				<tr>
+					<th>Filename</th>
+					<th>Path</th>
+					<th>Date Modified</th>
+					<th>Size</th>
+					<th>Extension</th>
+					<th>Owner</th>
+				</tr>
+				<c:forEach var="filedesc" items="${filedesc}">
+					<tr>
+						<td><c:out value="${filedesc.filename}" /></td>
+						<td><c:out value="${filedesc.filepath}" /></td>
+						<td><c:out value="${filedesc.dateModified}" /></td>
+						<td><c:out value="${filedesc.size}" /></td>
+						<td><c:out value="${filedesc.extension}" /></td>
+						<td><c:out value="${filedesc.owner}" /></td>
+						<td>
+							<form action="BedServlet" method="get"
+								enctype="multipart/form-data">
+								<button type="submit" name="button" value="EDIT"><a>Edit</a></button>
+								<input type="hidden" name="operation" value="EDIT" /> <input
+									type="hidden" name="id" value='${filedesc.id}' /> <input
+									type="hidden" name="ward_id" value='${filedesc.wardId}' />
+							</form>
+						</td>
+						<c:if test="${filedesc.checkinId == 0}">
+						   <td>
+							   <form action="BedServlet" method="get" enctype="multipart/form-data">
+		                            <button type="submit" name="button" value="Assign"><a>Assign</a></button>
+		                            <input type="hidden" name="operation" value="EDIT" />
+		                            <input type="hidden" name="id" value='${filedesc.id}' />
+		                            <input type="hidden" name="ward_id" value='${filedesc.wardId}' />
+		                        </form>
+		                       </td>
+		                </c:if>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+		
+		<div style="text-align:center">
+	         <form style="display:inline-block;" action="BedServlet" method="get" enctype="multipart/form-data">
+	             <input type="submit" class="button" value="Add new">
+	             <input type="hidden" name="operation" value="ADD" />
+	         </form>
+	         
+	         <form style="display:inline-block" action="homepage.jsp" method="get" enctype="multipart/form-data">
+				<input type="submit" class="button" value="HOME">
+			</form>
+			
+	    </div>
+		
+		
 	</body>
+    <script>
+    
+    </script>
+    
 </html>
