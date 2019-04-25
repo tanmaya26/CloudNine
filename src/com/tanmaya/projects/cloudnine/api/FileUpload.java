@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,6 +62,8 @@ public class FileUpload extends HttpServlet {
                            item.write(uploadedFile);
                        }
                    }
+                RequestDispatcher dispatcher = request.getRequestDispatcher("FileMappingServlet.java");
+           		dispatcher.forward(request, response);
                } catch (FileUploadException e) {
                    e.printStackTrace();
                } catch (Exception e) {
