@@ -36,29 +36,26 @@ public class FileUpload extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+           
+				boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		
-		   boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-
-           if (isMultipart) {
-               // Create a factory for disk-based file items
-               FileItemFactory factory = new DiskFileItemFactory();
+		if (isMultipart) {
+			//Create a factory for disk-based file items 
+			FileItemFactory factory = new DiskFileItemFactory();
                // Create a new file upload handler
                ServletFileUpload upload = new ServletFileUpload(factory);
-
                try {
-                   // Parse the request
                    List items = upload.parseRequest(request);
                    Iterator iterator = items.iterator();
                    while (iterator.hasNext()) {
                        FileItem item = (FileItem) iterator.next();
                        if (!item.isFormField()) {
                            String fileName = item.getName();    
-                           String root = getServletContext().getRealPath("/");
-                           File path = new File(root + "/uploads");
+                           String root = getServletContext().getRealPath("/root");
+                           File path = new File(root);
                            if (!path.exists()) {
                                boolean status = path.mkdirs();
                            }
-
                            File uploadedFile = new File(path + "/" + fileName);
                            System.out.println(uploadedFile.getAbsolutePath());
                            item.write(uploadedFile);
