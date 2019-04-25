@@ -21,6 +21,7 @@ public class FileUpload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String HTML_START="<html><body>";
 	public static final String HTML_END="</body></html>";
+	public static final String dbConnectionString = "";
        
 	private boolean isMultipart;
     private String filePath;
@@ -41,7 +42,6 @@ public class FileUpload extends HttpServlet {
            if (isMultipart) {
                // Create a factory for disk-based file items
                FileItemFactory factory = new DiskFileItemFactory();
-
                // Create a new file upload handler
                ServletFileUpload upload = new ServletFileUpload(factory);
 
