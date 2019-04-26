@@ -41,7 +41,7 @@ public class FileMappingServlet extends HttpServlet {
 			
 			String operation;
 			if(request.getParameter("operation") == null)
-				operation = "list";
+				operation = "saveFile";
 			else
 				operation = request.getParameter("operation");
 			

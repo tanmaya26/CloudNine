@@ -55,22 +55,25 @@ public class FileUpload extends HttpServlet {
 					if (!item.isFormField()) {
 						String fileName = item.getName();
 						String root = getServletContext().getRealPath("/root");
+						String relativeFilePath = root.substring(root.indexOf("root"));
+
 						File path = new File(root);
 						if (!path.exists()) {
 							boolean status = path.mkdirs();
 						}
 						File uploadedFile = new File(path + "/" + fileName);
-						//System.out.println(uploadedFile.getAbsolutePath());
+						// System.out.println(uploadedFile.getAbsolutePath());
 						item.write(uploadedFile);
 						String filepath = path + "/" + fileName;
-						//request.setAttribute("file", uploadedFile);
-						request.setAttribute("filepath", filepath);
-						System.out.println(filepath);
+						relativeFilePath = relativeFilePath + "/" + fileName;
+						// request.setAttribute("file", uploadedFile);
+						request.setAttribute("filepath", relativeFilePath);
+						System.out.println(relativeFilePath);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("FileMappingServlet");
 						dispatcher.forward(request, response);
 					}
 				}
-				
+
 			} catch (FileUploadException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
