@@ -31,31 +31,42 @@ public class FileMappingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-
-			String filepath = (String) request.getAttribute("filepath");
-			System.out.println(filepath);
-			File file = new File(filepath);
-			String filename = "";
-			int isDeleted = 1;
-			// BasicFileAttributes attr = Files.readAttributes(file.toPath(),
-			// BasicFileAttributes.class);
-//			System.out.println("creationTime: " + attr.creationTime());
-//			System.out.println("lastAccessTime: " + attr.lastAccessTime());
-//			System.out.println("lastModifiedTime: " + attr.lastModifiedTime());
-//			System.out.println("isDirectory: " + attr.isDirectory());
-//			System.out.println("isOther: " + attr.isOther());
-//			System.out.println("isRegularFile: " + attr.isRegularFile());
-//			System.out.println("isSymbolicLink: " + attr.isSymbolicLink());
-//			System.out.println("size: " + attr.size());
-			int i = filepath.length()-1;
-
-			while (i > 0 && filepath.charAt(i) != '/') {
-				filename += filepath.charAt(i);
-				i -= 1;
+			
+			String operation;
+			if(request.getParameter("operation") == null)
+				operation = "list";
+			else
+				operation = request.getParameter("operation");
+			
+			if(operation.equals("list")) {
+				
 			}
+			else {
+				String filepath = (String) request.getAttribute("filepath");
+				System.out.println(filepath);
+				File file = new File(filepath);
+				String filename = "";
+				int isDeleted = 1;
+				// BasicFileAttributes attr = Files.readAttributes(file.toPath(),
+				// BasicFileAttributes.class);
+//				System.out.println("creationTime: " + attr.creationTime());
+//				System.out.println("lastAccessTime: " + attr.lastAccessTime());
+//				System.out.println("lastModifiedTime: " + attr.lastModifiedTime());
+//				System.out.println("isDirectory: " + attr.isDirectory());
+//				System.out.println("isOther: " + attr.isOther());
+//				System.out.println("isRegularFile: " + attr.isRegularFile());
+//				System.out.println("isSymbolicLink: " + attr.isSymbolicLink());
+//				System.out.println("size: " + attr.size());
+				int i = filepath.length()-1;
 
-			fileMapping = new FileMapping(filepath, filename, isDeleted);
-			mappingDAO.createFileMapping(fileMapping);
+				while (i > 0 && filepath.charAt(i) != '/') {
+					filename += filepath.charAt(i);
+					i -= 1;
+				}
+
+				fileMapping = new FileMapping(filepath, filename, isDeleted);
+				mappingDAO.createFileMapping(fileMapping);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

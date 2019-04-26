@@ -1,12 +1,13 @@
 package com.tanmaya.projects.cloudnine.dao;
 
 import java.io.File;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List; 
 
 import com.tanmaya.projects.cloudnine.bean.FileMeta;
 
@@ -18,10 +19,11 @@ public class DirectoryDAO {
 	Statement statement = null;
 	ResultSet result = null;
 
-	public List<String> listDirectory() {
+	public List<String> listDirectory(String directory) {
 		List <String> dirList = new ArrayList<>();
 		try {
-			File currDir = new File(".");
+			//String root = getServletContext().getRealPath("/root");
+			File currDir = new File(directory);
 			File[] filesList = currDir.listFiles();
 			for(File f : filesList) {
 				if(f.isDirectory()) {

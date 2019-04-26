@@ -107,6 +107,20 @@
 					</tr>
 				</c:forEach>
 			</table>
+			
+			
+			<table border="1" cellpadding="5">
+				<tr>
+					<th>Folder Name</th>
+				</tr>
+				<c:forEach var="dirlist" items="${dirlist}">
+					<tr>
+						<td><c:out value="${dirlist}" /></td>
+					</tr>
+				</c:forEach>
+			</table>
+			
+			
 		</div>
 		
 		<div style="text-align:center">
