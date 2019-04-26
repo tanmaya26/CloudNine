@@ -18,25 +18,27 @@ import com.tanmaya.projects.cloudnine.dao.FileMappingDAO;
 @WebServlet("/FileMetaServlet")
 public class FileMetaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private DirectoryDAO ddao;
     public FileMetaServlet() {
         super();
-        // TODO Auto-generated constructor stub
+    }
+    
+    public void init() {
+    	ddao = new DirectoryDAO();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		DirectoryDAO ddao = new DirectoryDAO();
-//		List<String> dirlist = new ArrayList<>();
-//		String root = getServletContext().getRealPath("/root");
-//		//System.out.println(root);
-//		dirlist = ddao.listDirectory(root);
-//		request.setAttribute("dirlist", dirlist);
-//		//System.out.println("No of patients: " + patients.size());
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
-//		for(String s: dirlist) {
-//			System.out.println(s);
-//		}
-//		dispatcher.forward(request, response);
+		
+		List<String> dirlist = new ArrayList<>();
+		String root = getServletContext().getRealPath("/root");
+		dirlist = ddao.listDirectory(root);
+		request.setAttribute("dirlist", dirlist);
+		//System.out.println("No of patients: " + patients.size());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
+		for(String s: dirlist) {
+			System.out.println(s);
+		}
+		dispatcher.forward(request, response);
 		
 		FileMappingDAO fmdao = new FileMappingDAO();
 		FileMapping fm = new FileMapping("112", "hey", 0);
@@ -45,7 +47,6 @@ public class FileMetaServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
