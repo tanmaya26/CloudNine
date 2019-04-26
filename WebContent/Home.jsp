@@ -90,17 +90,17 @@
 								enctype="multipart/form-data">
 								<button type="submit" name="button" value="EDIT"><a>Edit</a></button>
 								<input type="hidden" name="operation" value="EDIT" /> <input
-									type="hidden" name="id" value='${filedesc.id}' /> <input
-									type="hidden" name="ward_id" value='${filedesc.wardId}' />
+									type="hidden" name="id" value='' /> <input
+									type="hidden" name="ward_id" value='' />
 							</form>
 						</td>
-						<c:if test="${filedesc.checkinId == 0}">
+						<c:if test="">
 						   <td>
 							   <form action="BedServlet" method="get" enctype="multipart/form-data">
 		                            <button type="submit" name="button" value="Assign"><a>Assign</a></button>
 		                            <input type="hidden" name="operation" value="EDIT" />
-		                            <input type="hidden" name="id" value='${filedesc.id}' />
-		                            <input type="hidden" name="ward_id" value='${filedesc.wardId}' />
+		                            <input type="hidden" name="id" value='' />
+		                            <input type="hidden" name="ward_id" value='' />
 		                        </form>
 		                       </td>
 		                </c:if>

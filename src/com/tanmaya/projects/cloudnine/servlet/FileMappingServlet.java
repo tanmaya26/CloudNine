@@ -53,6 +53,7 @@ public class FileMappingServlet extends HttpServlet {
 				String root = getServletContext().getRealPath("/root");
 				dirlist = ddao.listDirectory(root);
 				filelist = fdao.listFiles(root);
+				System.out.println("No of Files: " + filelist.size());
 				request.setAttribute("dirlist", dirlist);
 				request.setAttribute("filedesc", filelist);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
