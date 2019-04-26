@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Date;
 
 import com.tanmaya.projects.cloudnine.bean.FileMapping;
 
 public class FileMappingDAO {
 	public static final String jdbcURL = "jdbc:mysql://localhost:3306/photobucket";
 	public static final String user = "root";
-	public static final String password = "expertiza";
+	public static final String password = "";
 	Connection connection = null;
 	Statement statement = null;
 	ResultSet result = null;
@@ -32,6 +33,51 @@ public class FileMappingDAO {
 		} catch (Throwable oops) {
 			oops.printStackTrace();
 		}
+	}
+	
+	public void deleteFileMapping(int mapping_id) {
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			try {
+				connection = DriverManager.getConnection(jdbcURL, user, password);
+				statement = connection.createStatement();
+				statement.executeUpdate("DELETE from file_mappings where id = " + mapping_id + ";");
+				System.out.println("File mapping successfully deleted");
+			} finally {
+				close(result);
+				close(statement);
+				close(connection);
+			}
+		} catch (Throwable oops) {
+			oops.printStackTrace();
+		}
+	}
+	
+	public FileMapping selectFileMapping(int id) {
+		FileMapping filemapping = null;
+
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			try {
+				connection = DriverManager.getConnection(jdbcURL, user, password);
+				statement = connection.createStatement();
+				ResultSet rs = statement.executeQuery("SELECT filepath, filename, is_deleted FROM file_mappings WHERE id = " + id + ";");
+				while (rs.next()) {
+					int is_deleted = rs.getInt("is_deleted");
+					String filepath = rs.getString("filepath");
+					String filename = rs.getString("filename");
+					filemapping = new FileMapping(id, filepath, filename, is_deleted);
+				}
+
+			} finally {
+				close(result);
+				close(statement);
+				close(connection);
+			}
+		} catch (Throwable oops) {
+			oops.printStackTrace();
+		}
+		return filemapping;
 	}
 
 	static void close(Connection connection) {
