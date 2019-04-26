@@ -5,13 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tanmaya.projects.cloudnine.bean.FileList;
 import com.tanmaya.projects.cloudnine.bean.FileMapping;
+import com.tanmaya.projects.cloudnine.dao.DirectoryDAO;
+import com.tanmaya.projects.cloudnine.dao.FileListDAO;
 import com.tanmaya.projects.cloudnine.dao.FileMappingDAO;
 
 @WebServlet("/FileMappingServlet")
@@ -39,7 +46,17 @@ public class FileMappingServlet extends HttpServlet {
 				operation = request.getParameter("operation");
 			
 			if(operation.equals("list")) {
-				
+				DirectoryDAO ddao = new DirectoryDAO();
+				FileListDAO fdao = new FileListDAO();
+				List<String> dirlist = new ArrayList<>();
+				List<FileList> filelist = new ArrayList<>();
+				String root = getServletContext().getRealPath("/root");
+				dirlist = ddao.listDirectory(root);
+				filelist = fdao.listFiles(root);
+				request.setAttribute("dirlist", dirlist);
+				request.setAttribute("filedesc", filelist);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
+				dispatcher.forward(request, response);
 			}
 			else {
 				String filepath = (String) request.getAttribute("filepath");

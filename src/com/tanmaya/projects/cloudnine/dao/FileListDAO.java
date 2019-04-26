@@ -23,7 +23,7 @@ public class FileListDAO {
 	public List<FileList> listFiles(String directory) {
 		List<FileList> fileList = new ArrayList<>();
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			try {
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();

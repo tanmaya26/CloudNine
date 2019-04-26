@@ -25,6 +25,8 @@ public class DirectoryDAO {
 			//String root = getServletContext().getRealPath("/root");
 			File currDir = new File(directory);
 			File[] filesList = currDir.listFiles();
+			if(filesList == null)
+				return dirList;
 			for(File f : filesList) {
 				if(f.isDirectory()) {
 					dirList.add(f.getPath());

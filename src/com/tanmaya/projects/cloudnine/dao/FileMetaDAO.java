@@ -17,7 +17,7 @@ public class FileMetaDAO {
 
 	public void createFileMeta(FileMeta filemeta) {
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			try {
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();
