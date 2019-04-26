@@ -61,10 +61,10 @@ public class FileMappingServlet extends HttpServlet {
 			}
 			else {
 				String filepath = (String) request.getAttribute("filepath");
+				String filename = (String) request.getAttribute("filename");
 				System.out.println(filepath);
 				File file = new File(filepath);
-				String filename = "";
-				int isDeleted = 1;
+				int isDeleted = 0;
 				// BasicFileAttributes attr = Files.readAttributes(file.toPath(),
 				// BasicFileAttributes.class);
 //				System.out.println("creationTime: " + attr.creationTime());
@@ -75,15 +75,14 @@ public class FileMappingServlet extends HttpServlet {
 //				System.out.println("isRegularFile: " + attr.isRegularFile());
 //				System.out.println("isSymbolicLink: " + attr.isSymbolicLink());
 //				System.out.println("size: " + attr.size());
-				int i = filepath.length()-1;
-
-				while (i > 0 && filepath.charAt(i) != '/') {
-					filename += filepath.charAt(i);
-					i -= 1;
-				}
-
+				String root = getServletContext().getRealPath("/root");
+				String relativeFilePath = root.substring(root.indexOf("root"));
+				relativeFilePath = relativeFilePath + "/" + filename;
 				fileMapping = new FileMapping(filepath, filename, isDeleted);
 				mappingDAO.createFileMapping(fileMapping);
+				request.setAttribute("filepath", relativeFilePath);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("FileMetaServlet");
+				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -68,6 +68,7 @@ public class FileUpload extends HttpServlet {
 						relativeFilePath = relativeFilePath + "/" + fileName;
 						// request.setAttribute("file", uploadedFile);
 						request.setAttribute("filepath", relativeFilePath);
+						request.setAttribute("filename", fileName);
 						System.out.println(relativeFilePath);
 						RequestDispatcher dispatcher = request.getRequestDispatcher("FileMappingServlet");
 						dispatcher.forward(request, response);
