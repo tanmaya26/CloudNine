@@ -6,6 +6,10 @@ public class FileMapping {
 	private String filename;
 	private int isDeleted;
 
+	public FileMapping() {
+
+	}
+
 	public FileMapping(int id, String filepath, String filename, int isDeleted) {
 		super();
 		this.id = id;
@@ -52,6 +56,5 @@ public class FileMapping {
 	public void setIsDeleted(int isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	
 
 }
