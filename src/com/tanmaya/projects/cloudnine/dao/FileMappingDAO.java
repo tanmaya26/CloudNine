@@ -4,14 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Date;
-
 import com.tanmaya.projects.cloudnine.bean.FileMapping;
 
 public class FileMappingDAO {
-	public static final String jdbcURL = "jdbc:mysql://localhost:3306/photobucket";
-	public static final String user = "root";
-	public static final String password = "";
+
+	Config con = new Config();
+	String jdbcURL = con.getJdbcURL();
+	String user = con.getUser();
+	String password = con.getPassword();
 	Connection connection = null;
 	Statement statement = null;
 	ResultSet result = null;
@@ -20,6 +20,7 @@ public class FileMappingDAO {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
+				System.out.println(mapping.getFilename());
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();
 				statement.executeUpdate("INSERT INTO file_mappings (filepath, filename, is_deleted) VALUES" + "('"
@@ -34,7 +35,7 @@ public class FileMappingDAO {
 			oops.printStackTrace();
 		}
 	}
-	
+
 	public void deleteFileMapping(int mapping_id) {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -52,7 +53,7 @@ public class FileMappingDAO {
 			oops.printStackTrace();
 		}
 	}
-	
+
 	public FileMapping selectFileMapping(int id) {
 		FileMapping filemapping = null;
 
@@ -61,7 +62,8 @@ public class FileMappingDAO {
 			try {
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();
-				ResultSet rs = statement.executeQuery("SELECT filepath, filename, is_deleted FROM file_mappings WHERE id = " + id + ";");
+				ResultSet rs = statement.executeQuery(
+						"SELECT filepath, filename, is_deleted FROM file_mappings WHERE id = " + id + ";");
 				while (rs.next()) {
 					int is_deleted = rs.getInt("is_deleted");
 					String filepath = rs.getString("filepath");
