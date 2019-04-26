@@ -8,10 +8,16 @@ import com.tanmaya.projects.cloudnine.bean.FileMapping;
 
 public class FileMappingDAO {
 
-	Config con = new Config();
-	String jdbcURL = con.getJdbcURL();
-	String user = con.getUser();
-	String password = con.getPassword();
+	Config conf = null;
+	public  String jdbcURL;
+	public  String user;
+	public  String password;
+	public FileMappingDAO(){
+		conf = new Config();
+		jdbcURL = conf.getJdbcURL();
+		user = conf.getUser();
+		password = conf.getPassword();
+	}
 	Connection connection = null;
 	Statement statement = null;
 	ResultSet result = null;

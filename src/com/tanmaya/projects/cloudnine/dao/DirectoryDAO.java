@@ -12,9 +12,16 @@ import java.util.List;
 import com.tanmaya.projects.cloudnine.bean.FileMeta;
 
 public class DirectoryDAO {
-	public static final String jdbcURL = "jdbc:mysql://localhost:3306/photobucket";
-	public static final String user = "root";
-	public static final String password = "";
+	Config conf = null;
+	public  String jdbcURL;
+	public  String user;
+	public  String password;
+	public DirectoryDAO(){
+		conf = new Config();
+		jdbcURL = conf.getJdbcURL();
+		user = conf.getUser();
+		password = conf.getPassword();
+	}
 	Connection connection = null;
 	Statement statement = null;
 	ResultSet result = null;
