@@ -46,18 +46,7 @@ public class FileMappingServlet extends HttpServlet {
 				operation = request.getParameter("operation");
 			
 			if(operation.equals("list")) {
-				DirectoryDAO ddao = new DirectoryDAO();
-				FileListDAO fdao = new FileListDAO();
-				List<String> dirlist = new ArrayList<>();
-				List<FileList> filelist = new ArrayList<>();
-				String root = getServletContext().getRealPath("/root");
-				dirlist = ddao.listDirectory(root);
-				filelist = fdao.listFiles(root);
-				System.out.println("No of Files: " + filelist.size());
-				request.setAttribute("dirlist", dirlist);
-				request.setAttribute("filedesc", filelist);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
-				dispatcher.forward(request, response);
+				
 			}
 			else {
 				String filepath = (String) request.getAttribute("filepath");

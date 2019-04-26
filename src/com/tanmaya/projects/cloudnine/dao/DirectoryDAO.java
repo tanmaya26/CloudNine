@@ -45,6 +45,14 @@ public class DirectoryDAO {
 		}
 		return dirList;
 	}
+	// dirPath must include path and dir name
+	public void createDirectory(String dirPath) {
+		try {
+			
+		} catch (Throwable oops) {
+			oops.printStackTrace();
+		}
+	}
 
 	static void close(Connection connection) {
 		if (connection != null) {
