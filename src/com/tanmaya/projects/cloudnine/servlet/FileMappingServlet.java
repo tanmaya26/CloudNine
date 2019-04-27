@@ -58,7 +58,6 @@ public class FileMappingServlet extends HttpServlet {
 				String filePath = (String) request.getAttribute("filepath");
 				String fileName = (String) request.getAttribute("filename");
 				FilenameUtils.separatorsToSystem(filePath);
-				System.out.println(filePath);
 				File file = new File(filePath);
 				int isDeleted = 0;
 				fileMapping = new FileMapping(relativePath, fileName, isDeleted);
@@ -66,6 +65,7 @@ public class FileMappingServlet extends HttpServlet {
 				request.setAttribute("relativepath", relativePath);
 				request.setAttribute("filepath", filePath);
 				request.setAttribute("fileId", fileId);
+				request.setAttribute("filename", fileName);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("FileMetaServlet");
 				dispatcher.forward(request, response);
 			}
