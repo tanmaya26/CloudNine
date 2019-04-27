@@ -14,7 +14,6 @@ import java.util.List;
 import com.tanmaya.projects.cloudnine.bean.FileList;
 import com.tanmaya.projects.cloudnine.bean.FileMeta;
 
-import javafx.util.Pair;
 
 public class FileListDAO {
 	Config conf = null;
