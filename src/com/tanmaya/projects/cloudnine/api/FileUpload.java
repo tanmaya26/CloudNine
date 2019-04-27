@@ -62,11 +62,9 @@ public class FileUpload extends HttpServlet {
 							boolean status = path.mkdirs();
 						}
 						File uploadedFile = new File(path + "/" + fileName);
-						// System.out.println(uploadedFile.getAbsolutePath());
 						item.write(uploadedFile);
 						String filepath = path + "/" + fileName;
 						relativeFilePath = "/" + relativeFilePath + "/" + fileName;
-						// request.setAttribute("file", uploadedFile);
 						request.setAttribute("relativepath", relativeFilePath);
 						request.setAttribute("filepath", filepath);
 						request.setAttribute("filename", fileName);

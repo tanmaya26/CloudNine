@@ -1,6 +1,5 @@
 package com.tanmaya.projects.cloudnine.servlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tanmaya.projects.cloudnine.bean.FileList;
-import com.tanmaya.projects.cloudnine.bean.FileMapping;
 import com.tanmaya.projects.cloudnine.dao.DirectoryDAO;
 import com.tanmaya.projects.cloudnine.dao.FileListDAO;
 
@@ -42,9 +40,9 @@ public class DirectoryServlet extends HttpServlet {
 				DirectoryDAO ddao = new DirectoryDAO();
 				String absolutePath = getServletContext().getRealPath(currdir);
 				ddao.createDirectory(absolutePath, foldername);
-				
+
 				// Fetch and list directory contents
-				
+
 				System.out.println("Directory Path to list contents is (should be relative): " + currdir);
 				FileListDAO fdao = new FileListDAO();
 				List<String> dirlist = new ArrayList<>();

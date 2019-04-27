@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
+
 import com.tanmaya.projects.cloudnine.bean.FileList;
 import com.tanmaya.projects.cloudnine.bean.FileMapping;
 import com.tanmaya.projects.cloudnine.dao.DirectoryDAO;
@@ -52,6 +54,8 @@ public class FileMappingServlet extends HttpServlet {
 				String relativePath = (String) request.getAttribute("relativepath");
 				String filePath = (String) request.getAttribute("filepath");
 				String fileName = (String) request.getAttribute("filename");
+				FilenameUtils.separatorsToSystem(filePath);
+				System.out.println(filePath);
 				File file = new File(filePath);
 				int isDeleted = 0;
 				fileMapping = new FileMapping(relativePath, fileName, isDeleted);
