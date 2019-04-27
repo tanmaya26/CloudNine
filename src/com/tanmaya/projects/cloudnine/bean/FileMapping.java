@@ -5,6 +5,8 @@ public class FileMapping {
 	private String filepath;
 	private String filename;
 	private int isDeleted;
+	private int isDedup;
+	private String link;
 
 	public FileMapping() {
 
