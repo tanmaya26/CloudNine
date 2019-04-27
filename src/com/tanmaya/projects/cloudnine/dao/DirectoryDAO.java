@@ -36,7 +36,10 @@ public class DirectoryDAO {
 				return dirList;
 			for(File f : filesList) {
 				if(f.isDirectory()) {
-					dirList.add(f.getPath());
+					String absolutePath = f.getPath();
+					String relativePath = absolutePath.substring(absolutePath.indexOf("root"));
+					String dirname = relativePath.substring(relativePath.lastIndexOf("\\")+1);
+					dirList.add(dirname);
 				}
 			}
 			
@@ -46,9 +49,13 @@ public class DirectoryDAO {
 		return dirList;
 	}
 	// dirPath must include path and dir name
-	public void createDirectory(String dirPath) {
+	public void createDirectory(String absolutePath, String foldername) {
 		try {
-			
+			//System.out.println("Geneated path: " + absolutePath + " Folder name: " + foldername);
+			String generatedDir = absolutePath + "\\" + foldername;
+			System.out.println("Path from create: " + generatedDir);
+			File dir = new File(generatedDir);
+			dir.mkdir();
 		} catch (Throwable oops) {
 			oops.printStackTrace();
 		}
