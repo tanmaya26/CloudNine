@@ -52,12 +52,13 @@ public class FileMappingDAO {
 
 	public void deleteFileMapping(int mapping_id) {
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			try {
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();
-				statement.executeUpdate("DELETE from file_mappings where id = " + mapping_id + ";");
-				System.out.println("File mapping successfully deleted");
+				System.out.println("File mapping ID to be deleted: " + mapping_id);
+				statement.executeUpdate("UPDATE file_mappings SET is_deleted = 1 where id = "+ mapping_id +";");
+				System.out.println("File mapping successfully deleted for the user, not for us!");
 			} finally {
 				close(result);
 				close(statement);
@@ -72,7 +73,7 @@ public class FileMappingDAO {
 		FileMapping filemapping = null;
 
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			try {
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();

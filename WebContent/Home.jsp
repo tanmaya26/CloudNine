@@ -154,29 +154,15 @@
 					<td><c:out value="${filedesc.extension}" /></td>
 					<td><c:out value="${filedesc.owner}" /></td>
 					<td>
-						<form action="BedServlet" method="get"
+						<form action="FileMappingServlet" method="get"
 							enctype="multipart/form-data">
-							<button type="submit" name="button" value="EDIT">
-								<a>Edit</a>
+							<button type="submit">
+								<a>Delete</a>
 							</button>
-							<input type="hidden" name="operation" value="EDIT" /> <input
-								type="hidden" name="id" value='' /> <input type="hidden"
-								name="ward_id" value='' />
+							<input type="hidden" name="operation" value="deleteFile" /> <input
+								type="hidden" name="mapping_id" value="${filedesc.mappingId}" />
 						</form>
 					</td>
-					<c:if test="">
-						<td>
-							<form action="BedServlet" method="get"
-								enctype="multipart/form-data">
-								<button type="submit" name="button" value="Assign">
-									<a>Assign</a>
-								</button>
-								<input type="hidden" name="operation" value="EDIT" /> <input
-									type="hidden" name="id" value='' /> <input type="hidden"
-									name="ward_id" value='' />
-							</form>
-						</td>
-					</c:if>
 				</tr>
 			</c:forEach>
 		</table>

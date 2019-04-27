@@ -47,8 +47,11 @@ public class FileMappingServlet extends HttpServlet {
 			else
 				operation = request.getParameter("operation");
 			
-			if(operation.equals("list")) {
-				
+			if(operation.equals("deleteFile")) {
+				int mapping_id = Integer.parseInt(request.getParameter("mapping_id"));
+				mappingDAO.deleteFileMapping(mapping_id);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("DirectoryServlet");
+				dispatcher.forward(request, response);
 			}
 			else {
 				String relativePath = (String) request.getAttribute("relativepath");
