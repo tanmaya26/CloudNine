@@ -64,7 +64,7 @@ public class FileMetaServlet extends HttpServlet {
 			StringBuilder ext = new StringBuilder(extension);
 			extension = ext.reverse().toString();
 			dateModified = df.parse(df.format(attr.creationTime().toMillis()));
-			MessageDigest md5Digest = MessageDigest.getInstance("MD5");
+			MessageDigest md5Digest = MessageDigest.getInstance("SHA-512");
 			hash = FileChecksum.getFileChecksum(md5Digest, file);
 			metadata = new FileMeta(fileId, hash, dateModified, size, extension, owner);
 			metaDao.createFileMeta(metadata);
