@@ -209,12 +209,23 @@
 		</div>
 
 	</div>
-
+    
+    
+    <form style="display: none;" action="DirectoryServlet"
+        method="get" enctype="multipart/form-data" id="switchDirectoryForm">
+        <input type="hidden" name="operation" value="listDirContents" />
+        <input type="hidden" name="currdir" value="" id="setOpenFolderDir"/>
+    </form>
 
 </body>
 <script>
+    var currdir = document.getElementById("getcurrdir").value;
+    //alert("Currdir is: " + currdir);
 	function openSelectedDir(dir) {
-		alert("Function Called with : " + dir);
+        var openDir = currdir + "/" + dir;
+        document.getElementById("setOpenFolderDir").value = openDir;
+        document.getElementById("switchDirectoryForm").submit();
+		//alert("Function Called with : " + openDir);
 	}
 
 	function promptFoldername() {
