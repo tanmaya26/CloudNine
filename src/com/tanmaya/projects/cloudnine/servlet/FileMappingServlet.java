@@ -49,27 +49,16 @@ public class FileMappingServlet extends HttpServlet {
 				
 			}
 			else {
-				String filepath = (String) request.getAttribute("filepath");
-				String filename = (String) request.getAttribute("filename");
-				System.out.println(filepath);
-				File file = new File(filepath);
+				String relativePath = (String) request.getAttribute("relativepath");
+				String filePath = (String) request.getAttribute("filepath");
+				String fileName = (String) request.getAttribute("filename");
+				File file = new File(filePath);
 				int isDeleted = 0;
-				// BasicFileAttributes attr = Files.readAttributes(file.toPath(),
-				// BasicFileAttributes.class);
-//				System.out.println("creationTime: " + attr.creationTime());
-//				System.out.println("lastAccessTime: " + attr.lastAccessTime());
-//				System.out.println("lastModifiedTime: " + attr.lastModifiedTime());
-//				System.out.println("isDirectory: " + attr.isDirectory());
-//				System.out.println("isOther: " + attr.isOther());
-//				System.out.println("isRegularFile: " + attr.isRegularFile());
-//				System.out.println("isSymbolicLink: " + attr.isSymbolicLink());
-//				System.out.println("size: " + attr.size());
-				String root = getServletContext().getRealPath("/root");
-				String relativeFilePath = root.substring(root.indexOf("root"));
-				relativeFilePath = relativeFilePath + "/" + filename;
-				fileMapping = new FileMapping(filepath, filename, isDeleted);
-				mappingDAO.createFileMapping(fileMapping);
-				request.setAttribute("filepath", relativeFilePath);
+				fileMapping = new FileMapping(relativePath, fileName, isDeleted);
+				int fileId = mappingDAO.createFileMapping(fileMapping);
+				request.setAttribute("relativepath", relativePath);
+				request.setAttribute("filepath", filePath);
+				request.setAttribute("fileId", fileId);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("FileMetaServlet");
 				dispatcher.forward(request, response);
 			}

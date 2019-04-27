@@ -9,29 +9,36 @@ import com.tanmaya.projects.cloudnine.bean.FileMapping;
 public class FileMappingDAO {
 
 	Config conf = null;
-	public  String jdbcURL;
-	public  String user;
-	public  String password;
-	public FileMappingDAO(){
+	public String jdbcURL;
+	public String user;
+	public String password;
+
+	public FileMappingDAO() {
 		conf = new Config();
 		jdbcURL = conf.getJdbcURL();
 		user = conf.getUser();
 		password = conf.getPassword();
 	}
+
 	Connection connection = null;
 	Statement statement = null;
 	ResultSet result = null;
 
-	public void createFileMapping(FileMapping mapping) {
+	public int createFileMapping(FileMapping mapping) {
+		int fileId = 0;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
-				System.out.println(mapping.getFilename());
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();
 				statement.executeUpdate("INSERT INTO file_mappings (filepath, filename, is_deleted) VALUES" + "('"
 						+ mapping.getFilepath() + "','" + mapping.getFilename() + "'," + mapping.getIsDeleted() + ")");
 				System.out.println("File Mapping added successfully!");
+				ResultSet rs = statement.executeQuery("SELECT id FROM file_mappings WHERE filepath = '" + mapping.getFilepath()
+						+ "' AND filename = '" + mapping.getFilename() + "'");
+				while(rs.next()) {
+					fileId = rs.getInt("id");
+				}
 			} finally {
 				close(result);
 				close(statement);
@@ -40,6 +47,7 @@ public class FileMappingDAO {
 		} catch (Throwable oops) {
 			oops.printStackTrace();
 		}
+		return fileId;
 	}
 
 	public void deleteFileMapping(int mapping_id) {

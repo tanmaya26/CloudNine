@@ -9,30 +9,33 @@ import com.tanmaya.projects.cloudnine.bean.FileMeta;
 
 public class FileMetaDAO {
 	Config conf = null;
-	public  String jdbcURL;
-	public  String user;
-	public  String password;
-	public FileMetaDAO(){
+	public String jdbcURL;
+	public String user;
+	public String password;
+
+	public FileMetaDAO() {
 		conf = new Config();
 		jdbcURL = conf.getJdbcURL();
 		user = conf.getUser();
 		password = conf.getPassword();
 	}
+
 	Connection connection = null;
 	Statement statement = null;
 	ResultSet result = null;
 
-	public void createFileMeta(FileMeta filemeta) {
+	public void createFileMeta(FileMeta metadata) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();
-//				java.sql.Date sqlDate = new java.sql.Date(patient.getDob().getTime());
-//				statement.executeUpdate("INSERT INTO patients (name, dob, gender, ssn, address, phone_no, age) VALUES"
-//						+ "('" + patient.getName() + "','" + sqlDate + "','" + patient.getGender() + "','"
-//						+ patient.getSsn() + "','" + patient.getAddress() + "','" + patient.getPhoneNo() + "',"
-//						+ patient.getAge() + ")");
+				java.sql.Date sqlDate = new java.sql.Date(metadata.getDateModified().getTime());
+				statement.executeUpdate(
+						"INSERT INTO file_metadata (mapping_id, hash, date_modified, size, extension, owner) VALUES"
+								+ "(" + metadata.getMappingId() + ",'" + metadata.getHash() + "','" + sqlDate + "','"
+								+ metadata.getSize() + "','" + metadata.getExtension() + "','" + metadata.getOwner()
+								+ "')");
 				System.out.println("File Metadata added successfully!");
 			} finally {
 				close(result);
