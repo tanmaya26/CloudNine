@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tanmaya.projects.cloudnine.bean.FileMapping;
 import com.tanmaya.projects.cloudnine.bean.FileMeta;
 import com.tanmaya.projects.cloudnine.dao.DirectoryDAO;
+import com.tanmaya.projects.cloudnine.dao.FileListDAO;
 import com.tanmaya.projects.cloudnine.dao.FileMappingDAO;
 import com.tanmaya.projects.cloudnine.dao.FileMetaDAO;
 
@@ -49,29 +50,43 @@ public class FileMetaServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			String relativePath = (String) request.getAttribute("relativepath");
-			String filePath = (String) request.getAttribute("filepath");
-			String fileName = (String) request.getAttribute("filename");
-			fileId = (int) request.getAttribute("fileId");
-			File file = new File(filePath);
-			BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-			size = Long.toString(attr.size());
-			int i = fileName.length() - 1;
-			while (i > 0 && fileName.charAt(i) != '.') {
-				extension += fileName.charAt(i);
-				i -= 1;
-			}
-			StringBuilder ext = new StringBuilder(extension);
-			extension = ext.reverse().toString();
-			dateModified = df.parse(df.format(attr.creationTime().toMillis()));
-			MessageDigest md5Digest = MessageDigest.getInstance("SHA-512");
-			hash = FileChecksum.getFileChecksum(md5Digest, file);
-			metadata = new FileMeta(fileId, hash, dateModified, size, extension, owner);
-			metaDao.createFileMeta(metadata);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
-			dispatcher.forward(request, response);
 			
-
+			String operation;
+			if(request.getParameter("operation") == null)
+				operation = "createMeta";
+			else
+				operation = request.getParameter("operation");
+			
+			if(operation.equals("dedup")) {
+				FileListDAO fldao = new FileListDAO();
+				String absoluteBasePath = getServletContext().getRealPath("/");
+				System.out.println("Base Path: " + absoluteBasePath);
+				fldao.deDuplicate(absoluteBasePath);
+				System.out.println("Dedup performed!");
+			}
+			else {
+				String relativePath = (String) request.getAttribute("relativepath");
+				String filePath = (String) request.getAttribute("filepath");
+				String fileName = (String) request.getAttribute("filename");
+				fileId = (int) request.getAttribute("fileId");
+				File file = new File(filePath);
+				BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+				size = Long.toString(attr.size());
+				int i = fileName.length() - 1;
+				while (i > 0 && fileName.charAt(i) != '.') {
+					extension += fileName.charAt(i);
+					i -= 1;
+				}
+				StringBuilder ext = new StringBuilder(extension);
+				extension = ext.reverse().toString();
+				dateModified = df.parse(df.format(attr.creationTime().toMillis()));
+				MessageDigest md5Digest = MessageDigest.getInstance("SHA-512");
+				hash = FileChecksum.getFileChecksum(md5Digest, file);
+				metadata = new FileMeta(fileId, hash, dateModified, size, extension, owner);
+				metaDao.createFileMeta(metadata);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
+				dispatcher.forward(request, response);
+			}
 		} catch (Exception e) {
 
 		}

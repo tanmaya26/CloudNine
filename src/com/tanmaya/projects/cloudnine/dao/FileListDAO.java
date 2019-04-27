@@ -1,15 +1,20 @@
 package com.tanmaya.projects.cloudnine.dao;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import com.tanmaya.projects.cloudnine.bean.FileList;
 import com.tanmaya.projects.cloudnine.bean.FileMeta;
+
+import javafx.util.Pair;
 
 public class FileListDAO {
 	Config conf = null;
@@ -54,6 +59,39 @@ public class FileListDAO {
 			oops.printStackTrace();
 		}
 		return fileList;
+	}
+	
+	public void deDuplicate(String absoluteBasePath) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			try {
+				HashSet<String> hashList = new HashSet<String>();
+				connection = DriverManager.getConnection(jdbcURL, user, password);
+				statement = connection.createStatement();
+				ResultSet rs = statement.executeQuery("select file_metadata.id, hash, filepath from file_mappings, file_metadata where file_mappings.id = file_metadata.mapping_id;");
+				while(rs.next()) {
+					int fid = rs.getInt(1);
+					String hash = rs.getString("hash");
+					if(hashList.contains(hash)) {
+						System.out.println(fid+" has to be deleted");
+						String relativeFilePath = rs.getString("filepath");
+						String adjustedFilePath = absoluteBasePath + relativeFilePath.substring(1);
+						System.out.println("File to be deleted from: " + adjustedFilePath);
+						//File file = new File("");
+					}
+					else {
+						hashList.add(hash);
+					}
+				}
+			} finally {
+				close(result);
+				close(statement);
+				close(connection);
+			}
+		} catch (Throwable oops) {
+			oops.printStackTrace();
+		}
+		return;
 	}
 
 	static void close(Connection connection) {
