@@ -129,8 +129,9 @@
 	<div id="welcomeBox">Welcome, User!</div>
 	<div id="logout">Logout</div>
 
-	<div id="directoryLister">PhotoBucket > Randomzzzzz > mobile
-		uploads > angel_priya</div>
+	<div id="directoryLister">
+		PhotoBucket > ${currdir}
+	</div>
 
 	<div id="contentBox">
 		<table border="1" cellpadding="5">
@@ -198,9 +199,12 @@
 
 		<div style="text-align: center">
 			<form style="display: inline-block;" action="DirectoryServlet"
-				method="get" enctype="multipart/form-data">
-				<input type="submit" class="button" value="Create New Folder">
-				<input type="hidden" name="operation" value="create" />
+				method="get" enctype="multipart/form-data" id="createNewFolderForm">
+				<input type="button" class="button" value="Create New Folder"
+					onclick="promptFoldername();"> <input type="hidden"
+					name="operation" value="create" /> <input type="hidden"
+					name="foldername" value="" id="folernameInp" />
+                <input type="hidden" name="currdir" value="${currdir}" id="getcurrdir"/>
 			</form>
 		</div>
 
@@ -211,6 +215,15 @@
 <script>
 	function openSelectedDir(dir) {
 		alert("Function Called with : " + dir);
+	}
+
+	function promptFoldername() {
+		var foldername = prompt("Please enter folder name", "new folder");
+		if (foldername != null) {
+			document.getElementById("folernameInp").value = foldername;
+			document.getElementById("createNewFolderForm").submit();
+			//document.getElementById("getcurrdir").value 
+		}
 	}
 </script>
 

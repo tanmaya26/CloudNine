@@ -35,19 +35,36 @@ public class DirectoryServlet extends HttpServlet {
 				operation = request.getParameter("operation");
 
 			if (operation.equals("create")) {
-				String dirPath = request.getParameter("dirPath");
+				String currdir = request.getParameter("currdir");
+				if (currdir == null)
+					currdir = "/root";
+				String foldername = request.getParameter("foldername");
 				DirectoryDAO ddao = new DirectoryDAO();
-				ddao.createDirectory(dirPath);
-				//request.setAttribute("filedesc", filelist);
+				String absolutePath = getServletContext().getRealPath(currdir);
+				ddao.createDirectory(absolutePath, foldername);
+				
+				// Fetch and list directory contents
+				
+				System.out.println("Directory Path to list contents is (should be relative): " + currdir);
+				FileListDAO fdao = new FileListDAO();
+				List<String> dirlist = new ArrayList<>();
+				List<FileList> filelist = new ArrayList<>();
+				String root = getServletContext().getRealPath(currdir);
+				dirlist = ddao.listDirectory(root);
+				filelist = fdao.listFiles(root);
+				request.setAttribute("dirlist", dirlist);
+				request.setAttribute("filedesc", filelist);
+				request.setAttribute("currdir", currdir);
+				// ---------------------------------
+
 				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
 				dispatcher.forward(request, response);
-			} 
-			else if (operation.equals("listDirContents")) {
+			} else if (operation.equals("listDirContents")) {
 				String currdir = request.getParameter("currdir");
 				if (currdir == null) {
 					currdir = "/root";
 				}
-				System.out.println("Directory Path to list contents is (should be relative): " +currdir);
+				System.out.println("Directory Path to list contents is (should be relative): " + currdir);
 				DirectoryDAO ddao = new DirectoryDAO();
 				FileListDAO fdao = new FileListDAO();
 				List<String> dirlist = new ArrayList<>();
@@ -55,14 +72,14 @@ public class DirectoryServlet extends HttpServlet {
 				String root = getServletContext().getRealPath(currdir);
 				dirlist = ddao.listDirectory(root);
 				filelist = fdao.listFiles(root);
-				//System.out.println("No of Files: " + filelist.size());
+				// System.out.println("No of Files: " + filelist.size());
 				request.setAttribute("dirlist", dirlist);
 				request.setAttribute("filedesc", filelist);
+				request.setAttribute("currdir", currdir);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
 				dispatcher.forward(request, response);
-			}
-			else {
-				
+			} else {
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
