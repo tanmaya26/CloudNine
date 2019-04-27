@@ -34,7 +34,7 @@ public class FileListDAO {
 			try {
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();
-				ResultSet rs = statement.executeQuery("select file_mappings.id, filename, file_metadata.id, date_modified, size, extension, owner from file_mappings, file_metadata where file_mappings.id = file_metadata.mapping_id;");
+				ResultSet rs = statement.executeQuery("select file_mappings.id, filename, file_metadata.id, date_modified, size, extension, owner from file_mappings, file_metadata where file_mappings.id = file_metadata.mapping_id AND is_deleted = 0;");
 				while(rs.next()) {
 					int fid = rs.getInt(1);
 					String fname = rs.getString("filename");
