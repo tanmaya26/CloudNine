@@ -249,7 +249,7 @@ text-decoration: underline;
 		<input type="hidden" name="operation" value="listDirContents" /> <input
 			type="hidden" name="currdir" value="" id="setOpenFolderDir" />
 	</form>
-
+    <iframe id="my_iframe" style="display:none;"></iframe>
 </body>
 <script>
 	var currdir = document.getElementById("getcurrdir").value;
@@ -292,6 +292,7 @@ text-decoration: underline;
 		var fileurl = absolutePath + "\\" + filename;
 		alert("Loading files has been blocked by the browser \n Please paste the following URL (In the next prompt) in another tab to access the file: (This is a server generated path)");
 		prompt("Paste this in a new Tab", fileurl);
+        //document.getElementById('my_iframe').src = fileurl;
 		//window.location.replace(fileurl);
 	}
 </script>
