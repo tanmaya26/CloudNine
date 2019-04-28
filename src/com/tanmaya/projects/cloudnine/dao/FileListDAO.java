@@ -74,9 +74,14 @@ public class FileListDAO {
 					if(hashList.contains(hash)) {
 						System.out.println(fid+" has to be deleted");
 						String relativeFilePath = rs.getString("filepath");
+						relativeFilePath = relativeFilePath.replace('/', '\\');
 						String adjustedFilePath = absoluteBasePath + relativeFilePath.substring(1);
 						System.out.println("File to be deleted from: " + adjustedFilePath);
-						//File file = new File("");
+						File file = new File(adjustedFilePath);
+						if(file.delete());
+						{
+							System.out.println("File Deleted");
+						}
 					}
 					else {
 						hashList.add(hash);

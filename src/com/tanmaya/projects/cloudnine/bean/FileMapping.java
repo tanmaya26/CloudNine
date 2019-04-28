@@ -27,6 +27,16 @@ public class FileMapping {
 		this.isDeleted = isDeleted;
 	}
 
+	public FileMapping(int id, String filepath, String filename, int isDeleted, int isDedup, String link) {
+		super();
+		this.id = id;
+		this.filepath = filepath;
+		this.filename = filename;
+		this.isDeleted = isDeleted;
+		this.isDedup = isDedup;
+		this.link = link;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -57,6 +67,22 @@ public class FileMapping {
 
 	public void setIsDeleted(int isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public int getIsDedup() {
+		return isDedup;
+	}
+
+	public void setIsDedup(int isDedup) {
+		this.isDedup = isDedup;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 }
