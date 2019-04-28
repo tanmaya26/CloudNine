@@ -85,6 +85,24 @@
 	vertical-align: middle;
 	font-family: simplifica !important;
 }
+    
+    #sizeBox{
+        position: absolute;
+        top: 120px;
+        left: 50%;
+        margin-left: 300px;
+        max-height: 300px;
+        overflow-y: scroll;
+        width: 300px;
+        height: 45px;
+        background-color: #1a8180;
+        color: white;
+        border-radius: 5px;
+        line-height: 45px;
+        text-align: center;
+        vertical-align: middle;
+        font-family: simplifica !important;
+    }
 
 #contentBox {
 	position: absolute;
@@ -132,7 +150,8 @@
 	<div id="directoryLister">
 		PhotoBucket > ${currdir}
 	</div>
-
+    <div id="sizeBox">
+    </div>
 	<div id="contentBox">
 		<table border="1" cellpadding="5">
 			<tr>
@@ -206,6 +225,7 @@
 </body>
 <script>
     var currdir = document.getElementById("getcurrdir").value;
+    fetchDirSize();
     //alert("Currdir is: " + currdir);
 	function openSelectedDir(dir) {
         var openDir = currdir + "/" + dir;
@@ -222,6 +242,19 @@
 			//document.getElementById("getcurrdir").value 
 		}
 	}
+    
+    function fetchDirSize(){
+        $.get("DirectoryServlet",
+        {
+             operation: "fetchDirSize",
+             currdir: currdir,
+        },
+        function(data, status){
+            rxdata=JSON.stringify(data);
+            //alert(rxdata);
+            document.getElementById("sizeBox").innerHTML = rxdata;
+        });
+    }
 </script>
 
 </html>
