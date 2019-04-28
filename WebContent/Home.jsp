@@ -137,6 +137,14 @@
 	border-color: #1a8180;
 }
 
+.fileNameRedir {
+	cursor: pointer;
+}
+
+.fileNameRedir:hover{
+text-decoration: underline;
+}
+
 #iconDiv {
 	width: 40px;
 	height: 40px;
@@ -184,7 +192,7 @@
 			<c:forEach var="filedesc" items="${filedesc}">
 				<tr>
 					<td><div id="iconDiv"></div></td>
-					<td><c:out value="${filedesc.filename}" /></td>
+					<td class="fileNameRedir" onclick="openCurrentFile('${filedesc.filename}');"><c:out value="${filedesc.filename}" /></td>
 					<td><c:out value="${filedesc.filepath}" /></td>
 					<td><c:out value="${filedesc.dateModified}" /></td>
 					<td><c:out value="${filedesc.size}" /></td>
@@ -228,6 +236,8 @@
 					name="operation" value="create" /> <input type="hidden"
 					name="foldername" value="" id="folernameInp" /> <input
 					type="hidden" name="currdir" value="${currdir}" id="getcurrdir" />
+					<input
+					type="hidden" name="currdir" value="${absolutePath}" id="getabsdir" />
 			</form>
 		</div>
 
@@ -243,6 +253,8 @@
 </body>
 <script>
 	var currdir = document.getElementById("getcurrdir").value;
+	var absolutePath = document.getElementById("getabsdir").value;
+	//alert(absolutePath);
 	fetchDirSize();
 	//alert("Currdir is: " + currdir);
 	function openSelectedDir(dir) {
@@ -274,6 +286,13 @@
 
 	function redirectToFileUpload() {
 		window.location = "FileUploader.jsp";
+	}
+	
+	function openCurrentFile(filename){
+		var fileurl = absolutePath + "\\" + filename;
+		alert("Loading files has been blocked by the browser \n Please paste the following URL (In the next prompt) in another tab to access the file: (This is a server generated path)");
+		prompt("Paste this in a new Tab", fileurl);
+		//window.location.replace(fileurl);
 	}
 </script>
 

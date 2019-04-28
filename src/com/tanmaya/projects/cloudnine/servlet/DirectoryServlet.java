@@ -54,6 +54,7 @@ public class DirectoryServlet extends HttpServlet {
 				request.setAttribute("dirlist", dirlist);
 				request.setAttribute("filedesc", filelist);
 				request.setAttribute("currdir", currdir);
+				request.setAttribute("absolutePath", absolutePath);
 				// ---------------------------------
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
@@ -75,6 +76,7 @@ public class DirectoryServlet extends HttpServlet {
 				request.setAttribute("dirlist", dirlist);
 				request.setAttribute("filedesc", filelist);
 				request.setAttribute("currdir", currdir);
+				request.setAttribute("absolutePath", root);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
 				dispatcher.forward(request, response);
 			} else if(operation.equals("fetchDirSize")){

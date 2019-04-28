@@ -41,7 +41,7 @@ public class FileListDAO {
 				connection = DriverManager.getConnection(jdbcURL, user, password);
 				statement = connection.createStatement();
 				ResultSet rs = statement.executeQuery(
-						"select file_mappings.id, filename, file_metadata.id, date_modified, size, extension, owner from file_mappings, file_metadata where file_mappings.id = file_metadata.mapping_id AND is_deleted = 0;");
+						"select file_mappings.id, filename, file_metadata.id, date_modified, size, extension, owner, filepath from file_mappings, file_metadata where file_mappings.id = file_metadata.mapping_id AND is_deleted = 0;");
 				while (rs.next()) {
 					int fid = rs.getInt(1);
 					String fname = rs.getString("filename");
@@ -50,6 +50,7 @@ public class FileListDAO {
 					String size = rs.getString("size");
 					String extension = rs.getString("extension");
 					String owner = rs.getString("owner");
+					directory = rs.getString("filepath");
 					fileList.add(new FileList(fmid, fid, dateModified, size, extension, owner, directory, fname));
 				}
 			} finally {
