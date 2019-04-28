@@ -33,7 +33,6 @@ public class FileMetaServlet extends HttpServlet {
 	String hash;
 	Date dateModified;
 	String size;
-	String extension = "";
 	String owner = "admin";
 	DateFormat df = new SimpleDateFormat("dd/MM/yy");
 	int fileId;
@@ -41,7 +40,7 @@ public class FileMetaServlet extends HttpServlet {
 	public FileMetaServlet() {
 		super();
 	}
-	
+
 	public void init() {
 		metaDao = new FileMetaDAO();
 	}
@@ -52,23 +51,24 @@ public class FileMetaServlet extends HttpServlet {
 		try {
 			
 			String operation;
-			if(request.getParameter("operation") == null)
+			if (request.getParameter("operation") == null)
 				operation = "createMeta";
 			else
 				operation = request.getParameter("operation");
-			
-			if(operation.equals("dedup")) {
+
+			if (operation.equals("dedup")) {
 				FileListDAO fldao = new FileListDAO();
 				String absoluteBasePath = getServletContext().getRealPath("/");
 				System.out.println("Base Path: " + absoluteBasePath);
 				fldao.deDuplicate(absoluteBasePath);
 				System.out.println("Dedup performed!");
-			}
-			else {
+			} else {
+				String extension = "";
 				String relativePath = (String) request.getAttribute("relativepath");
 				String filePath = (String) request.getAttribute("filepath");
 				String fileName = (String) request.getAttribute("filename");
 				fileId = (int) request.getAttribute("fileId");
+				System.out.println("Filename: " + fileName);
 				File file = new File(filePath);
 				BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
 				size = Long.toString(attr.size());
