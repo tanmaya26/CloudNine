@@ -72,7 +72,7 @@
 	position: absolute;
 	top: 120px;
 	left: 50%;
-	margin-left: -250px;
+	margin-left: -350px;
 	max-height: 300px;
 	overflow-y: scroll;
 	width: 500px;
@@ -90,7 +90,7 @@
         position: absolute;
         top: 120px;
         left: 50%;
-        margin-left: 300px;
+        margin-left: 200px;
         max-height: 300px;
         overflow-y: scroll;
         width: 300px;
@@ -102,6 +102,25 @@
         text-align: center;
         vertical-align: middle;
         font-family: simplifica !important;
+    }
+    
+     #uploadButton{
+        position: absolute;
+        top: 120px;
+        left: 50%;
+        margin-left: -500px ;
+        max-height: 300px;
+        overflow-y: scroll;
+        width: 100px;
+        height: 45px;
+        background-color: #1a8180;
+        color: white;
+        border-radius: 5px;
+        line-height: 45px;
+        text-align: center;
+        vertical-align: middle;
+        font-family: simplifica !important;
+        cursor: pointer;
     }
 
 #contentBox {
@@ -152,6 +171,7 @@
 	</div>
     <div id="sizeBox">
     </div>
+    <div id="uploadButton" onclick="redirectToFileUpload();">Upload File</div>
 	<div id="contentBox">
 		<table border="1" cellpadding="5">
 			<tr>
@@ -254,6 +274,10 @@
             //alert(rxdata);
             document.getElementById("sizeBox").innerHTML = rxdata;
         });
+    }
+    
+    function redirectToFileUpload(){
+    	window.location = "FileUploader.jsp";
     }
 </script>
 
