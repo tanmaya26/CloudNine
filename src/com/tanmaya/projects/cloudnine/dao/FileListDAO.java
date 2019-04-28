@@ -90,12 +90,14 @@ public class FileListDAO {
 							deDup.put(hashList.get(hash), fid);
 						} else {
 							System.out.println("File Not Found");
+							deDup.put(hashList.get(hash), fid);
 						}
 					} else{
 						hashList.put(hash,filePath);
 					}
 				}
 				for (Entry<String, Integer> entry : deDup.entrySet()) {
+					System.out.println("Here!");
 					statement.executeUpdate("UPDATE file_mappings SET is_dedup = 1 , link = '" + entry.getKey()
 							+ "' where id = " + entry.getValue() + ";");
 				}

@@ -84,7 +84,7 @@ public class FileMetaServlet extends HttpServlet {
 				hash = FileChecksum.getFileChecksum(md5Digest, file);
 				metadata = new FileMeta(fileId, hash, dateModified, size, extension, owner);
 				metaDao.createFileMeta(metadata);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("DirectoryServlet");
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
