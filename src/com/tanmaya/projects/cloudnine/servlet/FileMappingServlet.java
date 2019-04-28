@@ -50,7 +50,17 @@ public class FileMappingServlet extends HttpServlet {
 			if(operation.equals("deleteFile")) {
 				int mapping_id = Integer.parseInt(request.getParameter("mapping_id"));
 				mappingDAO.deleteFileMapping(mapping_id);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("DirectoryServlet");
+				FileListDAO fdao = new FileListDAO();
+				List<String> dirlist = new ArrayList<>();
+				List<FileList> filelist = new ArrayList<>();
+				String root = getServletContext().getRealPath("/root");
+				DirectoryDAO ddao = new DirectoryDAO();
+				dirlist = ddao.listDirectory(root);
+				filelist = fdao.listFiles(root);
+				request.setAttribute("dirlist", dirlist);
+				request.setAttribute("filedesc", filelist);
+				request.setAttribute("currdir", "/root");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
 				dispatcher.forward(request, response);
 			}
 			else {

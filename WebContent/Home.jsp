@@ -85,43 +85,43 @@
 	vertical-align: middle;
 	font-family: simplifica !important;
 }
-    
-    #sizeBox{
-        position: absolute;
-        top: 120px;
-        left: 50%;
-        margin-left: 200px;
-        max-height: 300px;
-        overflow-y: scroll;
-        width: 300px;
-        height: 45px;
-        background-color: #1a8180;
-        color: white;
-        border-radius: 5px;
-        line-height: 45px;
-        text-align: center;
-        vertical-align: middle;
-        font-family: simplifica !important;
-    }
-    
-     #uploadButton{
-        position: absolute;
-        top: 120px;
-        left: 50%;
-        margin-left: -500px ;
-        max-height: 300px;
-        overflow-y: scroll;
-        width: 100px;
-        height: 45px;
-        background-color: #1a8180;
-        color: white;
-        border-radius: 5px;
-        line-height: 45px;
-        text-align: center;
-        vertical-align: middle;
-        font-family: simplifica !important;
-        cursor: pointer;
-    }
+
+#sizeBox {
+	position: absolute;
+	top: 120px;
+	left: 50%;
+	margin-left: 200px;
+	max-height: 300px;
+	overflow-y: scroll;
+	width: 300px;
+	height: 45px;
+	background-color: #1a8180;
+	color: white;
+	border-radius: 5px;
+	line-height: 45px;
+	text-align: center;
+	vertical-align: middle;
+	font-family: simplifica !important;
+}
+
+#uploadButton {
+	position: absolute;
+	top: 120px;
+	left: 50%;
+	margin-left: -500px;
+	max-height: 300px;
+	overflow-y: scroll;
+	width: 100px;
+	height: 45px;
+	background-color: #1a8180;
+	color: white;
+	border-radius: 5px;
+	line-height: 45px;
+	text-align: center;
+	vertical-align: middle;
+	font-family: simplifica !important;
+	cursor: pointer;
+}
 
 #contentBox {
 	position: absolute;
@@ -166,12 +166,10 @@
 	<div id="welcomeBox">Welcome, User!</div>
 	<div id="logout">Logout</div>
 
-	<div id="directoryLister">
-		PhotoBucket > ${currdir}
-	</div>
-    <div id="sizeBox">
-    </div>
-    <div id="uploadButton" onclick="redirectToFileUpload();">Upload File</div>
+	<div id="directoryLister">PhotoBucket > ${currdir}</div>
+	<div id="sizeBox"></div>
+	<div id="uploadButton" onclick="redirectToFileUpload();">Upload
+		File</div>
 	<div id="contentBox">
 		<table border="1" cellpadding="5">
 			<tr>
@@ -228,29 +226,29 @@
 				<input type="button" class="button" value="Create New Folder"
 					onclick="promptFoldername();"> <input type="hidden"
 					name="operation" value="create" /> <input type="hidden"
-					name="foldername" value="" id="folernameInp" />
-                <input type="hidden" name="currdir" value="${currdir}" id="getcurrdir"/>
+					name="foldername" value="" id="folernameInp" /> <input
+					type="hidden" name="currdir" value="${currdir}" id="getcurrdir" />
 			</form>
 		</div>
 
 	</div>
-    
-    
-    <form style="display: none;" action="DirectoryServlet"
-        method="get" enctype="multipart/form-data" id="switchDirectoryForm">
-        <input type="hidden" name="operation" value="listDirContents" />
-        <input type="hidden" name="currdir" value="" id="setOpenFolderDir"/>
-    </form>
+
+
+	<form style="display: none;" action="DirectoryServlet" method="get"
+		enctype="multipart/form-data" id="switchDirectoryForm">
+		<input type="hidden" name="operation" value="listDirContents" /> <input
+			type="hidden" name="currdir" value="" id="setOpenFolderDir" />
+	</form>
 
 </body>
 <script>
-    var currdir = document.getElementById("getcurrdir").value;
-    fetchDirSize();
-    //alert("Currdir is: " + currdir);
+	var currdir = document.getElementById("getcurrdir").value;
+	fetchDirSize();
+	//alert("Currdir is: " + currdir);
 	function openSelectedDir(dir) {
-        var openDir = currdir + "/" + dir;
-        document.getElementById("setOpenFolderDir").value = openDir;
-        document.getElementById("switchDirectoryForm").submit();
+		var openDir = currdir + "/" + dir;
+		document.getElementById("setOpenFolderDir").value = openDir;
+		document.getElementById("switchDirectoryForm").submit();
 		//alert("Function Called with : " + openDir);
 	}
 
@@ -262,23 +260,21 @@
 			//document.getElementById("getcurrdir").value 
 		}
 	}
-    
-    function fetchDirSize(){
-        $.get("DirectoryServlet",
-        {
-             operation: "fetchDirSize",
-             currdir: currdir,
-        },
-        function(data, status){
-            rxdata=JSON.stringify(data);
-            //alert(rxdata);
-            document.getElementById("sizeBox").innerHTML = rxdata;
-        });
-    }
-    
-    function redirectToFileUpload(){
-    	window.location = "FileUploader.jsp";
-    }
+
+	function fetchDirSize() {
+		$.get("DirectoryServlet", {
+			operation : "fetchDirSize",
+			currdir : currdir,
+		}, function(data, status) {
+			rxdata = JSON.stringify(data);
+			//alert(rxdata);
+			document.getElementById("sizeBox").innerHTML = rxdata;
+		});
+	}
+
+	function redirectToFileUpload() {
+		window.location = "FileUploader.jsp";
+	}
 </script>
 
 </html>
