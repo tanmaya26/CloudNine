@@ -1,6 +1,7 @@
 package com.tanmaya.projects.cloudnine.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,8 +77,19 @@ public class DirectoryServlet extends HttpServlet {
 				request.setAttribute("currdir", currdir);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
 				dispatcher.forward(request, response);
-			} else {
-
+			} else if(operation.equals("fetchDirSize")){
+				String currdir = request.getParameter("currdir");
+				if (currdir == null) {
+					currdir = "/root";
+				}
+				DirectoryDAO ddao = new DirectoryDAO();
+				int size = ddao.sizeOfDirInKB(currdir);
+				PrintWriter out = response.getWriter();
+				out.print("Drive occupies: " + size + "KB Memory");
+				System.out.println("Fetch Size Called for dir: " + currdir);
+			}
+			else {
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
