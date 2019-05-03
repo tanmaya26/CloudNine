@@ -90,8 +90,11 @@ public class DirectoryServlet extends HttpServlet {
 				out.print("Drive occupies: " + size + "KB Memory");
 				System.out.println("Fetch Size Called for dir: " + currdir);
 			}
-			else {
-				
+			else if (operation.equals("UploadFile")){
+				String dir = request.getParameter("directory");
+				request.setAttribute("directory", dir);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("FileUploader.jsp");
+				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

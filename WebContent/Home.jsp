@@ -141,8 +141,8 @@
 	cursor: pointer;
 }
 
-.fileNameRedir:hover{
-text-decoration: underline;
+.fileNameRedir:hover {
+	text-decoration: underline;
 }
 
 #iconDiv {
@@ -192,7 +192,9 @@ text-decoration: underline;
 			<c:forEach var="filedesc" items="${filedesc}">
 				<tr>
 					<td><div id="iconDiv"></div></td>
-					<td class="fileNameRedir" onclick="openCurrentFile('${filedesc.filename}');"><c:out value="${filedesc.filename}" /></td>
+					<td class="fileNameRedir"
+						onclick="openCurrentFile('${filedesc.filename}');"><c:out
+							value="${filedesc.filename}" /></td>
 					<td><c:out value="${filedesc.filepath}" /></td>
 					<td><c:out value="${filedesc.dateModified}" /></td>
 					<td><c:out value="${filedesc.size}" /></td>
@@ -236,8 +238,8 @@ text-decoration: underline;
 					name="operation" value="create" /> <input type="hidden"
 					name="foldername" value="" id="folernameInp" /> <input
 					type="hidden" name="currdir" value="${currdir}" id="getcurrdir" />
-					<input
-					type="hidden" name="currdir" value="${absolutePath}" id="getabsdir" />
+				<input type="hidden" name="currdir" value="${absolutePath}"
+					id="getabsdir" />
 			</form>
 		</div>
 
@@ -249,7 +251,13 @@ text-decoration: underline;
 		<input type="hidden" name="operation" value="listDirContents" /> <input
 			type="hidden" name="currdir" value="" id="setOpenFolderDir" />
 	</form>
-    <iframe id="my_iframe" style="display:none;"></iframe>
+
+	<form style="display: none;" action="DirectoryServlet" method="get"
+		enctype="multipart/form-data" id="uploadFileForm">
+		<input type="hidden" name="operation" value="UploadFile" /> <input
+			type="hidden" name="directory" value="" id="uploadFileDir" />
+	</form>
+	<iframe id="my_iframe" style="display: none;"></iframe>
 </body>
 <script>
 	var currdir = document.getElementById("getcurrdir").value;
@@ -285,14 +293,16 @@ text-decoration: underline;
 	}
 
 	function redirectToFileUpload() {
-		window.location = "FileUploader.jsp";
+		//window.location = "FileUploader.jsp";
+		document.getElementById("uploadFileDir").value = currdir;
+		document.getElementById("uploadFileForm").submit();
 	}
-	
-	function openCurrentFile(filename){
+
+	function openCurrentFile(filename) {
 		var fileurl = absolutePath + "\\" + filename;
 		alert("Loading files has been blocked by the browser \n Please paste the following URL (In the next prompt) in another tab to access the file: (This is a server generated path)");
 		prompt("Paste this in a new Tab", fileurl);
-        //document.getElementById('my_iframe').src = fileurl;
+		//document.getElementById('my_iframe').src = fileurl;
 		//window.location.replace(fileurl);
 	}
 </script>

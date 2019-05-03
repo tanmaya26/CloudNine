@@ -40,6 +40,8 @@ public class FileUpload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HashMap<String, String> incoming = new HashMap<>();
+		String uploadpath = "";
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
 		if (isMultipart) {
@@ -52,9 +54,21 @@ public class FileUpload extends HttpServlet {
 				Iterator iterator = items.iterator();
 				while (iterator.hasNext()) {
 					FileItem item = (FileItem) iterator.next();
+					incoming.put(item.getFieldName(), item.getString());
+					if (incoming.get("directory") != null) {
+						uploadpath = incoming.get("directory");
+					}
 					if (!item.isFormField()) {
 						String fileName = item.getName();
 						String root = getServletContext().getRealPath("/root");
+
+						if (uploadpath == "") {
+							System.out.println("Dir was null");
+							root = getServletContext().getRealPath("/root");
+						} else {
+							System.out.println("File would be uploaded to: " + uploadpath);
+							root = getServletContext().getRealPath(uploadpath);
+						}
 						String relativeFilePath = root.substring(root.indexOf("root"));
 
 						File path = new File(root);
